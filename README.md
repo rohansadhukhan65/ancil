@@ -15,7 +15,7 @@ This project is a Next.js application that uses MongoDB as the database.
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/your-repository.git
+   git clone https://github.com/rohansadhukhan65/ancil.git
    cd your-repository
    ```
 
