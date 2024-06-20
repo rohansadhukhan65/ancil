@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Define your models here ......
+ 
+model People {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  gender       String
+  name         String
+  location     Location?   @relation(fields: [locationId], references: [id])
+  email        String
+  login        Login?      @relation(fields: [loginId], references: [id])
+  dob          Dob?        @relation(fields: [dobId], references: [id])
+  registered   Registered? @relation(fields: [registeredId], references: [id])
+  phone        String
+  cell         String
+  idDetails    IdDetails?  @relation(fields: [idDetailsId], references: [id])
+  picture      String     
+
+  locationId   String     @db.ObjectId
+  loginId      String     @db.ObjectId
+  dobId        String     @db.ObjectId
+  registeredId String     @db.ObjectId
+  idDetailsId  String     @db.ObjectId
+}
+
+ 
+
+model Location {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  street        Street      @relation(fields: [streetId], references: [id])
+  city          String
+  state         String
+  country       String
+  postcode      Int
+  coordinates   Coordinates @relation(fields: [coordinatesId], references: [id])
+  timezone      Timezone    @relation(fields: [timezoneId], references: [id])
+  People          People[]
+  streetId      String      @db.ObjectId
+  coordinatesId String      @db.ObjectId
+  timezoneId    String      @db.ObjectId
+}
+
+model Street {
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  number   Int
+  name     String
+  Location Location[]
+}
+
+model Coordinates {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  latitude  String
+  longitude String
+  Location  Location[]
+}
+
+model Timezone {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  offset      String
+  description String
+  Location    Location[]
+}
+
+model Login {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  uuid     String
+  username String
+  password String
+  salt     String
+  md5      String
+  sha1     String
+  sha256   String
+  People     People[]
+}
+
+model Dob {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  date String
+  age  Int
+  People People[]
+}
+
+model Registered {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  date String
+  age  Int
+  People People[]
+}
+
+model IdDetails {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name  String?
+  value String?
+  People  People[]
+}
+
+ 
