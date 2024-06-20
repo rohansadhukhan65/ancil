@@ -6,7 +6,8 @@ export const MongoConnect = async () => {
     //   console.log('already established')
     //   return mongoose.connection
     // }
-    mongoose.connect("mongodb://localhost:27017/ancil")
+    // mongoose.connect("mongodb://localhost:27017/ancil")
+    mongoose.connect(`${process.env.DATABASE_URL}`)
     const connection = mongoose.connection
     connection.once('open', () => {
       console.log('MongoDB database connection established successfully')

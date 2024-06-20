@@ -9,7 +9,6 @@ export const GET = async (req: any) => {
     const filter = searchParams.get("filter");
     let peoples;
     if (filter) {
-      console.log("Filtered !");
       if (filter === "asc") {
         peoples = await PeopleModel.find({}).sort({ name: 1 });
       }
