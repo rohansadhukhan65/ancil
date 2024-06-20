@@ -46,7 +46,6 @@ This project is a Next.js application that uses MongoDB as the database.
    ```env
    # Example content for .env.local
    DATABASE_URL=mongodb://localhost:27017/yourdatabase
-   NEXT_PUBLIC_API_URL=https://api.example.com
    ```
 
 ### Running the Project
